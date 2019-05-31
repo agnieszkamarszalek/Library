@@ -30,9 +30,9 @@ public class LibraryApplication {
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/books.json");
 			try {
 				ItemContainer itemContainer = mapper.readValue(inputStream,ItemContainer.class);
-				System.out.println("Users Saved!");
+				System.out.println("Json read");
 			} catch (IOException e){
-				System.out.println("Unable to save users: " + e.getMessage());
+				System.out.println("Couldn't read json" + e.getMessage());
 			}
 		};
 	}
