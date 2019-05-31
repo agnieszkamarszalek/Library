@@ -6,6 +6,5 @@ import java.util.List;
 
 @Data
 public class ItemContainer {
-    private String requestedUrl;
     private List<Item> items;
 }

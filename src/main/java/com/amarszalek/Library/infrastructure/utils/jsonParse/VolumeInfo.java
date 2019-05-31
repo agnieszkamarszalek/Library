@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class VolumeInfo {
@@ -15,9 +16,10 @@ public class VolumeInfo {
     private String description;
     private int pageCount;
     private ImageLinks imageLinks;
-    private String langugage;
+    private String language;
     private String previewLink;
     private double averageRating;
     private List<String> authors;
     private List<String> categories;
+
 }
