@@ -15,11 +15,11 @@ public class VolumeInfo {
     private String publisher;
     private Timestamp publishedDate; // "2006", "2013-12-09"
     private String description;
-    private int pageCount;
+    private Integer pageCount;
     private ImageLinks imageLinks;
     private String language;
     private String previewLink;
-    private double averageRating;
+    private Double averageRating;
     private List<String> authors;
     private List<String> categories;
 

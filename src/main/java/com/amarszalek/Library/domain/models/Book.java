@@ -21,10 +21,10 @@ public class Book {
     private Timestamp publishedDate;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private int pageCount;
+    private Integer pageCount;
     private String thumbnailUrl;
     private String language;
-    private double averageRating;
+    private Double averageRating;
     private String previewLink;
     @ElementCollection
     private List<String> authors;
