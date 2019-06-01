@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class BookConfig {
 
     @Bean
-    BookFacade bookFacade(BookRepository bookRepository, ModelMapper modelMapper) {
-        return new BookFacade(bookRepository, modelMapper);
+    BookFacade bookFacade(BookRepository bookRepository, ModelMapper modelMapper, BookService bookService) {
+        return new BookFacade(bookRepository, modelMapper, bookService);
     }
 
     @Bean

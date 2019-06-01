@@ -3,17 +3,52 @@ package com.amarszalek.Library.domain.services;
 import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import lombok.AllArgsConstructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 @AllArgsConstructor
 public class BookService {
 
     private BookRepository bookRepository;
 
-     Map<String, List<Double>> getAuthorsWithTheirsBooksRatings() {
+    public List<Book> getBooksByPhrase(String phrase) {
+        List<Book> booksWithPhrase = new ArrayList<>();
+        List<Book> books = bookRepository.findAll();
+        String lowerCasePhrase = phrase.toLowerCase();
+        for (Book book : books ) {
+            if (book.getTitle() != null && book.getTitle().toLowerCase().contains(lowerCasePhrase)) {
+                booksWithPhrase.add(book);
+                continue;
+            }
+            if (book.getSubtitle() != null && book.getSubtitle().toLowerCase().contains(lowerCasePhrase)) {
+                booksWithPhrase.add(book);
+                continue;
+            }
+            if (book.getPublisher()!= null && book.getPublisher().toLowerCase().contains(lowerCasePhrase)) {
+                booksWithPhrase.add(book);
+                continue;
+            }
+            if (book.getDescription() != null && book.getDescription().toLowerCase().contains(lowerCasePhrase)) {
+                booksWithPhrase.add(book);
+                continue;
+            }
+            for (String categories : book.getCategories()) {
+                if(categories.toLowerCase().contains(lowerCasePhrase)) {
+                    booksWithPhrase.add(book);
+                    break;
+                }
+            }
+            for (String author : book.getAuthors()) {
+                if(author.toLowerCase().contains(lowerCasePhrase)) {
+                    booksWithPhrase.add(book);
+                    break;
+                }
+            }
+        }
+        return booksWithPhrase;
+    }
+
+    Map<String, List<Double>> getAuthorsWithTheirsBooksRatings() {
         List<Book> allBooks = bookRepository.findAll();
         Map<String, List<Double>> authorsAndBooksRatingMap = new HashMap<>();
         for (Book book : allBooks) {
