@@ -1,6 +1,8 @@
 package com.amarszalek.Library.infrastructure.utils.jsonParse;
 
 import com.amarszalek.Library.domain.models.Book;
+import com.amarszalek.Library.infrastructure.utils.jsonParse.models.Item;
+import com.amarszalek.Library.infrastructure.utils.jsonParse.models.ItemContainer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class JsonParser {
 
-    public void parseToBook() {
+    public List<Book> parseToBook() {
         // read json
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -23,10 +25,10 @@ public class JsonParser {
         try {
             itemContainer = mapper.readValue(inputStream,ItemContainer.class);
             bookList = convertItemContainerIntoBook(itemContainer);
-            System.out.println("Json read");
         } catch (IOException e){
             System.out.println("Couldn't read json" + e.getMessage());
         }
+        return bookList;
     }
 
     private List<Book> convertItemContainerIntoBook(ItemContainer itemContainer) {
@@ -43,6 +45,8 @@ public class JsonParser {
                     book.setTitle(item.getVolumeInfo().getTitle());
                     book.setThumbnailUrl(item.getVolumeInfo().getImageLinks().getThumbnail());
                     book.setLanguage(item.getVolumeInfo().getLanguage());
+                    book.setAverageRating(item.getVolumeInfo().getAverageRating());
+                    book.setPreviewLink(item.getVolumeInfo().getPreviewLink());
                     book.setAuthors(item.getVolumeInfo().getAuthors());
                     book.setCategories(item.getVolumeInfo().getCategories());
                     return book;

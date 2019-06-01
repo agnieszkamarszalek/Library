@@ -1,4 +1,4 @@
-package com.amarszalek.Library.infrastructure.utils.jsonParse;
+package com.amarszalek.Library.infrastructure.utils.jsonParse.models;
 
 import lombok.Data;
 

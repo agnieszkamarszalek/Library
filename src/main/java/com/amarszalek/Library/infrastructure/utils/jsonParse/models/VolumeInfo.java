@@ -1,10 +1,11 @@
-package com.amarszalek.Library.infrastructure.utils.jsonParse;
+package com.amarszalek.Library.infrastructure.utils.jsonParse.models;
 
+import com.amarszalek.Library.infrastructure.utils.jsonParse.models.ImageLinks;
+import com.amarszalek.Library.infrastructure.utils.jsonParse.models.IndustryIdentifier;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 public class VolumeInfo {
