@@ -3,9 +3,7 @@ package com.amarszalek.Library.domain.facades;
 import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import lombok.AllArgsConstructor;
-
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 public class BookFacade {
@@ -21,6 +19,15 @@ public class BookFacade {
 
     public List<Book> getBooksByCategory(String categoryName) {
         return  bookRepository.findByCategories(categoryName)
+                .orElseThrow(
+                        () -> new BookNotFoundException("No results found")
+                );
+    }
+
+    public List<Book> findByPhrase(String phrase) {
+        return bookRepository
+                .findByTitleIgnoreCaseContainingOrSubtitleIgnoreCaseContainingOrDescriptionIgnoreCaseContainingOrPublisherIgnoreCaseContaining(
+                phrase, phrase, phrase, phrase)
                 .orElseThrow(
                         () -> new BookNotFoundException("No results found")
                 );
