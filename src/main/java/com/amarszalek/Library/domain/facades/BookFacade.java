@@ -4,6 +4,7 @@ import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -16,5 +17,12 @@ public class BookFacade {
                         () ->  new BookNotFoundException("No results found")
                 )
         );
+    }
+
+    public List<Book> getBooksByCategory(String categoryName) {
+        return  bookRepository.findByCategories(categoryName)
+                .orElseThrow(
+                        () -> new BookNotFoundException("No results found")
+                );
     }
 }
