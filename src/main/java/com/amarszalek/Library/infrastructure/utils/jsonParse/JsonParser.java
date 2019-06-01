@@ -38,6 +38,7 @@ public class JsonParser {
         return items.stream().map(
                 item -> {
                     Book book = new Book();
+                    book.setId(item.getId());
                     book.setSubtitle(item.getVolumeInfo().getSubtitle());
                     book.setPublisher(item.getVolumeInfo().getPublisher());
                     book.setPublishedDate(item.getVolumeInfo().getPublishedDate());

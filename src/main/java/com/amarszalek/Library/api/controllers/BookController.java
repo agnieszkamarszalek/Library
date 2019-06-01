@@ -18,6 +18,6 @@ public class BookController {
 
     @GetMapping("/{isbn}")
     public ResponseEntity getBook(@PathVariable String isbn) {
-        return new ResponseEntity(bookFacade.getBookByIsbn(isbn), HttpStatus.OK);
+        return new ResponseEntity(bookFacade.getBookByIsbnOrId(isbn), HttpStatus.OK);
     }
 }
