@@ -1,7 +1,6 @@
 package com.amarszalek.Library.api.controllers;
 
 import com.amarszalek.Library.domain.facades.AuthorRatingFacade;
-import com.amarszalek.Library.domain.services.AuthorRating;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

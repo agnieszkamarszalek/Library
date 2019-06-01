@@ -7,6 +7,8 @@ import com.amarszalek.Library.infrastructure.utils.jsonParse.models.ItemContaine
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,12 +18,15 @@ import java.util.stream.Collectors;
 
 public class JsonParser {
 
+    @Value("${jsonPath}")
+    private String jsonPath;
+
     public List<Book> parseToBook() {
         // read json
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        InputStream inputStream = TypeReference.class.getResourceAsStream("/json/books.json");
+        InputStream inputStream = TypeReference.class.getResourceAsStream(jsonPath);
         ItemContainer itemContainer;
         List<Book> bookList = new ArrayList<>();
         try {
