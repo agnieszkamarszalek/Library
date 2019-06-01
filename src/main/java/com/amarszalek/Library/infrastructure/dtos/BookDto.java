@@ -1,5 +1,6 @@
 package com.amarszalek.Library.infrastructure.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookDto {
 
     private String isbn;
