@@ -13,9 +13,10 @@ public class AuthorRating {
         Map<String, List<Double>> authorsWithTheirsBooksRatings = bookService.getAuthorsWithTheirsBooksRatings();
         Map<String, Double> authorsWithTheirsAverageRatings = new HashMap<>();
         for (Map.Entry<String, List<Double>> entry : authorsWithTheirsBooksRatings.entrySet()) {
-            Double averageRating = entry.getValue().stream()
+            Double sumOfRatings = entry.getValue().stream()
                     .reduce(Double::sum).get();
-            authorsWithTheirsAverageRatings.put(entry.getKey(), averageRating);
+            int numberOfRatings = entry.getValue().size();
+            authorsWithTheirsAverageRatings.put(entry.getKey(), sumOfRatings / numberOfRatings);
         }
         return authorsWithTheirsAverageRatings
                 .entrySet()
