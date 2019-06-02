@@ -1,5 +1,6 @@
 package com.amarszalek.Library.domain.services;
 
+import com.amarszalek.Library.domain.exceptions.BookNotFoundException;
 import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import lombok.AllArgsConstructor;
@@ -62,5 +63,16 @@ public class BookService {
             }
         }
         return authorsAndBooksRatingMap;
+    }
+
+    public List<Book> getBooksByCategory(String categoryName) {
+        return bookRepository.findByCategoriesIgnoreCase(categoryName)
+                .orElse(new ArrayList<>());
+    }
+
+    public Book findByIsbn(String isbn) {
+        return  bookRepository.findByIsbn(isbn).orElseThrow(
+                        () -> new BookNotFoundException("No results found")
+        );
     }
 }

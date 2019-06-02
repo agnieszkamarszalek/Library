@@ -5,7 +5,6 @@ import com.amarszalek.Library.domain.facades.BookFacade;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import com.amarszalek.Library.domain.services.AuthorRating;
 import com.amarszalek.Library.domain.services.BookService;
-import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class BookConfig {
 
     @Bean
-    BookFacade bookFacade(BookRepository bookRepository, ModelMapper modelMapper, BookService bookService) {
-        return new BookFacade(bookRepository, modelMapper, bookService);
+    BookFacade bookFacade(ModelMapper modelMapper, BookService bookService) {
+        return new BookFacade(modelMapper, bookService);
     }
 
     @Bean

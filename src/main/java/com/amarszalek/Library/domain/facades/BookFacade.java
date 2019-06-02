@@ -1,6 +1,5 @@
 package com.amarszalek.Library.domain.facades;
 
-import com.amarszalek.Library.domain.exceptions.BookNotFoundException;
 import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import com.amarszalek.Library.domain.services.BookService;
@@ -12,24 +11,16 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class BookFacade {
-    private BookRepository bookRepository;
     private ModelMapper modelMapper;
     private BookService bookService;
 
     public BookDto getBookByIsbnOrId(String isbn) {
-        Book book = bookRepository.findByIsbn(isbn).orElseGet(
-                () -> bookRepository.findById(isbn).orElseThrow(
-                        () -> new BookNotFoundException("No results found")
-                )
-        );
+        Book book = bookService.findByIsbn(isbn);
         return modelMapper.map(book, BookDto.class);
     }
 
     public List<BookDto> getBooksByCategory(String categoryName) {
-        List<Book> books = bookRepository.findByCategoriesIgnoreCase(categoryName)
-                .orElseThrow(
-                        () -> new BookNotFoundException("No results found")
-                );
+        List<Book> books = bookService.getBooksByCategory(categoryName);
         return mapBookListToBookDtoList(books);
     }
 

@@ -2,10 +2,6 @@ package com.amarszalek.Library.infrastructure.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Data
