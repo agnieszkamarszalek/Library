@@ -3,6 +3,8 @@ package com.amarszalek.Library.domain.facades;
 import com.amarszalek.Library.domain.services.AuthorRating;
 import com.amarszalek.Library.infrastructure.dtos.AuthorRatingDto;
 import lombok.AllArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,6 +16,9 @@ public class AuthorRatingFacade {
 
     public List<AuthorRatingDto> getAverageRatingAllAuthors() {
         Map<String, Double> calculateAverageRatingAllAuthors = authorRating.calculateAverageRatingAllAuthors();
+        if(calculateAverageRatingAllAuthors.isEmpty()) {
+            return new ArrayList<>();
+        }
         return calculateAverageRatingAllAuthors.entrySet()
                 .stream()
                 .map(entry -> {
