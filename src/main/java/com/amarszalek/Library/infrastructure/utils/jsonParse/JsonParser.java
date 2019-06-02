@@ -37,7 +37,9 @@ public class JsonParser {
 
     private List<Book> convertItemContainerIntoBook(ItemContainer itemContainer) {
         List<Item> items = itemContainer.getItems();
-        return items.stream().map(
+        return items.stream()
+                .filter(book -> book.getVolumeInfo() != null)
+                .map(
                 item -> {
                     Book book = new Book();
                     book.setId(item.getId());
