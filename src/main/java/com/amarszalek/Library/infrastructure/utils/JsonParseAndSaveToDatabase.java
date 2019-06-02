@@ -4,7 +4,6 @@ import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.infrastructure.utils.jsonParse.JsonParser;
 import com.amarszalek.Library.infrastructure.utils.saveToDatabase.SaveToDatabase;
 import lombok.AllArgsConstructor;
-
 import java.util.List;
 
 @AllArgsConstructor

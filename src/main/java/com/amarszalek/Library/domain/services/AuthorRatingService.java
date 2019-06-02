@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class AuthorRating {
+public class AuthorRatingService {
 
     private BookService bookService;
 

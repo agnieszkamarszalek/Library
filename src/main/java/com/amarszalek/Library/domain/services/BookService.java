@@ -20,7 +20,7 @@ public class BookService {
                 continue;
             }
             for (String author : book.getAuthors()) {
-                List<Double> ratingsList = authorsAndBooksRatingMap.getOrDefault(author, new ArrayList<Double>());
+                List<Double> ratingsList = authorsAndBooksRatingMap.getOrDefault(author, new ArrayList<>());
                 ratingsList.add(book.getAverageRating());
                 authorsAndBooksRatingMap.put(author, ratingsList);
             }

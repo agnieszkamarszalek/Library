@@ -9,9 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.*;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -83,7 +81,6 @@ public class BookServiceTest extends AbstractTest {
         List<Book> booksByPhrase = bookService.getBooksByPhrase(lookingPhrase);
         //then
         Assert.assertEquals(1, booksByPhrase.size());
-
     }
 
     @Test
@@ -98,7 +95,6 @@ public class BookServiceTest extends AbstractTest {
         List<Book> booksByPhrase = bookService.getBooksByPhrase(lookingPhrase);
         //then
         Assert.assertEquals(1, booksByPhrase.size());
-
     }
 
     @Test
@@ -108,6 +104,7 @@ public class BookServiceTest extends AbstractTest {
         bookList.get(0).setAverageRating(4.0);
         bookList.get(1).setAuthors(Arrays.asList("Authors", "Chris"));
         bookList.get(1).setAverageRating(2.0);
+        bookList.get(2).setAuthors(Arrays.asList("Krzysztof"));
         when(bookRepository.findAll()).thenReturn(bookList);
         //when
         Map<String, List<Double>> authorsWithTheirsBooksRatings = bookService.getAuthorsWithTheirsBooksRatings();

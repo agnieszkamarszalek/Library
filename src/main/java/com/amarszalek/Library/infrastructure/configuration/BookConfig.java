@@ -3,7 +3,7 @@ package com.amarszalek.Library.infrastructure.configuration;
 import com.amarszalek.Library.domain.facades.AuthorRatingFacade;
 import com.amarszalek.Library.domain.facades.BookFacade;
 import com.amarszalek.Library.domain.repositories.BookRepository;
-import com.amarszalek.Library.domain.services.AuthorRating;
+import com.amarszalek.Library.domain.services.AuthorRatingService;
 import com.amarszalek.Library.domain.services.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +23,12 @@ public class BookConfig {
     }
 
     @Bean
-    AuthorRating authorRating(BookService bookService) {
-        return new AuthorRating(bookService);
+    AuthorRatingService authorRating(BookService bookService) {
+        return new AuthorRatingService(bookService);
     }
 
     @Bean
-    AuthorRatingFacade authorRatingFacade(AuthorRating authorRating) {
-        return new AuthorRatingFacade(authorRating);
+    AuthorRatingFacade authorRatingFacade(AuthorRatingService authorRatingService) {
+        return new AuthorRatingFacade(authorRatingService);
     }
 }

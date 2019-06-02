@@ -1,7 +1,6 @@
 package com.amarszalek.Library.domain.facades;
 
 import com.amarszalek.Library.domain.models.Book;
-import com.amarszalek.Library.domain.repositories.BookRepository;
 import com.amarszalek.Library.domain.services.BookService;
 import com.amarszalek.Library.infrastructure.dtos.BookDto;
 import lombok.AllArgsConstructor;
