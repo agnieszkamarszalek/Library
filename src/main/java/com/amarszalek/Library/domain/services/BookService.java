@@ -33,16 +33,20 @@ public class BookService {
                 booksWithPhrase.add(book);
                 continue;
             }
-            for (String categories : book.getCategories()) {
-                if(categories.toLowerCase().contains(lowerCasePhrase)) {
-                    booksWithPhrase.add(book);
-                    break;
+            if(book.getCategories() != null) {
+                for (String categories : book.getCategories()) {
+                    if(categories.toLowerCase().contains(lowerCasePhrase)) {
+                        booksWithPhrase.add(book);
+                        break;
+                    }
                 }
             }
-            for (String author : book.getAuthors()) {
-                if(author.toLowerCase().contains(lowerCasePhrase)) {
-                    booksWithPhrase.add(book);
-                    break;
+            if(book.getAuthors() != null) {
+                for (String author : book.getAuthors()) {
+                    if(author.toLowerCase().contains(lowerCasePhrase)) {
+                        booksWithPhrase.add(book);
+                        break;
+                    }
                 }
             }
         }
