@@ -1,6 +1,7 @@
 package com.amarszalek.Library.domain.services;
 
 import com.amarszalek.Library.AbstractTest;
+import com.amarszalek.Library.domain.exceptions.BookNotFoundException;
 import com.amarszalek.Library.domain.models.Book;
 import com.amarszalek.Library.domain.repositories.BookRepository;
 import org.junit.Assert;
@@ -8,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+import java.util.*;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class BookServiceTest extends AbstractTest {
@@ -98,6 +99,43 @@ public class BookServiceTest extends AbstractTest {
         //then
         Assert.assertEquals(1, booksByPhrase.size());
 
+    }
+
+    @Test
+    public void shouldReturnMapWithAuthorsAndTheirsBooksRatings() {
+        //given
+        bookList.get(0).setAuthors(Arrays.asList("Authors"));
+        bookList.get(0).setAverageRating(4.0);
+        bookList.get(1).setAuthors(Arrays.asList("Authors", "Chris"));
+        bookList.get(1).setAverageRating(2.0);
+        when(bookRepository.findAll()).thenReturn(bookList);
+        //when
+        Map<String, List<Double>> authorsWithTheirsBooksRatings = bookService.getAuthorsWithTheirsBooksRatings();
+        //then
+        Assert.assertTrue(authorsWithTheirsBooksRatings.containsKey("Authors"));
+        Assert.assertTrue(authorsWithTheirsBooksRatings.containsKey("Chris"));
+        Assert.assertEquals(authorsWithTheirsBooksRatings.get("Authors"), Arrays.asList(4.0, 2.0));
+        Assert.assertEquals(authorsWithTheirsBooksRatings.get("Chris"), Arrays.asList(2.0));
+    }
+
+    @Test
+    public void shouldReturnEmptyListWhenGettingBooksByCategory() {
+        //given
+        Optional<List<Book>> optional = Optional.empty();
+        when(bookRepository.findByCategoriesIgnoreCase(any(String.class))).thenReturn(optional);
+        //when
+        List<Book> books = bookService.getBooksByCategory("Programming");
+        //then
+        Assert.assertEquals(0,books.size());
+    }
+
+    @Test(expected = BookNotFoundException.class)
+    public void shouldThrowExceptionWhenSearchingByIsbn() {
+        //given
+        Optional<List<Book>> optional = Optional.empty();
+        when(bookRepository.findByCategoriesIgnoreCase(any(String.class))).thenReturn(optional);
+        //when
+        bookService.findByIsbn("isbn");
     }
 
 }

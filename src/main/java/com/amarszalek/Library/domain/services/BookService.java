@@ -12,6 +12,33 @@ public class BookService {
 
     private BookRepository bookRepository;
 
+    Map<String, List<Double>> getAuthorsWithTheirsBooksRatings() {
+        List<Book> allBooks = bookRepository.findAll();
+        Map<String, List<Double>> authorsAndBooksRatingMap = new HashMap<>();
+        for (Book book : allBooks) {
+            if (book.getAverageRating() == null) {
+                continue;
+            }
+            for (String author : book.getAuthors()) {
+                List<Double> ratingsList = authorsAndBooksRatingMap.getOrDefault(author, new ArrayList<Double>());
+                ratingsList.add(book.getAverageRating());
+                authorsAndBooksRatingMap.put(author, ratingsList);
+            }
+        }
+        return authorsAndBooksRatingMap;
+    }
+
+    public List<Book> getBooksByCategory(String categoryName) {
+        return bookRepository.findByCategoriesIgnoreCase(categoryName)
+                .orElse(new ArrayList<>());
+    }
+
+    public Book findByIsbn(String isbn) {
+        return  bookRepository.findByIsbn(isbn).orElseThrow(
+                () -> new BookNotFoundException("No results found")
+        );
+    }
+
     public List<Book> getBooksByPhrase(String phrase) {
         List<Book> booksWithPhrase = new ArrayList<>();
         List<Book> books = bookRepository.findAll();
@@ -51,32 +78,5 @@ public class BookService {
             }
         }
         return booksWithPhrase;
-    }
-
-    Map<String, List<Double>> getAuthorsWithTheirsBooksRatings() {
-        List<Book> allBooks = bookRepository.findAll();
-        Map<String, List<Double>> authorsAndBooksRatingMap = new HashMap<>();
-        for (Book book : allBooks) {
-            if (book.getAverageRating() == null) {
-                continue;
-            }
-            for (String author : book.getAuthors()) {
-                List<Double> ratingsList = authorsAndBooksRatingMap.getOrDefault(author, new ArrayList<Double>());
-                ratingsList.add(book.getAverageRating());
-                authorsAndBooksRatingMap.put(author, ratingsList);
-            }
-        }
-        return authorsAndBooksRatingMap;
-    }
-
-    public List<Book> getBooksByCategory(String categoryName) {
-        return bookRepository.findByCategoriesIgnoreCase(categoryName)
-                .orElse(new ArrayList<>());
-    }
-
-    public Book findByIsbn(String isbn) {
-        return  bookRepository.findByIsbn(isbn).orElseThrow(
-                        () -> new BookNotFoundException("No results found")
-        );
     }
 }
