@@ -16,7 +16,7 @@ public class CategoriesController {
 
     private BookFacade bookFacade;
 
-    @GetMapping("{categoryName}/books")
+    @GetMapping("/{categoryName}/books")
     public ResponseEntity getBooksByCategory(@PathVariable String categoryName) {
         return new ResponseEntity(bookFacade.getBooksByCategory(categoryName), HttpStatus.OK);
     }

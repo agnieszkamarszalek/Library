@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ public class AuthorsRatingsControllerTest extends AbstractTest {
     @MockBean
     private AuthorRatingFacade authorRatingFacade;
     @Autowired
-    private TestRestTemplate testRestTemplate;
-    @Autowired
     private AuthorsRatingsController authorsRatingsController;
 
     @Test
@@ -30,8 +27,8 @@ public class AuthorsRatingsControllerTest extends AbstractTest {
         when(authorRatingFacade.getAverageRatingAllAuthors()).thenReturn(authorRatingDtos);
         //when
         authorsRatingsController.getAuthorsRating();
-        ResponseEntity<List> responseEntity = testRestTemplate.getForEntity(
-                super.getBaseUrl() + "/api/rating", List.class);
+        ResponseEntity<List> responseEntity = super.testRestTemplate.getForEntity(
+                super.baseUrl + "/api/rating", List.class);
         //then
         Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
